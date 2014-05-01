@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ namespace Asteroid_Belt_Assault
 {
     class PlayerManager
     {
-        public Sprite playerSprite;
+        public Sprite Gunship;
         private float playerSpeed = 160.0f;
         private Rectangle playerAreaLimit;
 
@@ -30,7 +30,7 @@ namespace Asteroid_Belt_Assault
             int frameCount,
             Rectangle screenBounds)
         {
-            playerSprite = new Sprite(
+            Gunship = new Sprite(
                 new Vector2(500, 500),
                 texture,
                 initialFrame,
@@ -50,17 +50,18 @@ namespace Asteroid_Belt_Assault
                     screenBounds.Height / 2,
                     screenBounds.Width,
                     screenBounds.Height / 2);
-
+            
             for (int x = 1; x < frameCount; x++)
             {
-                playerSprite.AddFrame(
+                Gunship.AddFrame(
                     new Rectangle(
                         initialFrame.X + (initialFrame.Width * x),
                         initialFrame.Y,
                         initialFrame.Width,
                         initialFrame.Height));
             }
-            playerSprite.CollisionRadius = playerRadius;
+             
+            Gunship.CollisionRadius = playerRadius;
         }
 
         private void FireShot()
@@ -68,7 +69,7 @@ namespace Asteroid_Belt_Assault
             if (shotTimer >= minShotTimer)
             {
                 PlayerShotManager.FireShot(
-                    playerSprite.Location + gunOffset,
+                    Gunship.Location + gunOffset,
                     new Vector2(0, -1),
                     true);
                 shotTimer = 0.0f;
@@ -79,22 +80,22 @@ namespace Asteroid_Belt_Assault
         {
             if (keyState.IsKeyDown(Keys.Up))
             {
-                playerSprite.Velocity += new Vector2(0, -1);
+                Gunship.Velocity += new Vector2(0, -1);
             }
 
             if (keyState.IsKeyDown(Keys.Down))
             {
-                playerSprite.Velocity += new Vector2(0, 1);
+                Gunship.Velocity += new Vector2(0, 1);
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                playerSprite.Velocity += new Vector2(-1, 0);
+                Gunship.Velocity += new Vector2(-1, 0);
             }
 
             if (keyState.IsKeyDown(Keys.Right))
             {
-                playerSprite.Velocity += new Vector2(1, 0);
+                Gunship.Velocity += new Vector2(1, 0);
             }
 
             if (keyState.IsKeyDown(Keys.Space))
@@ -105,7 +106,7 @@ namespace Asteroid_Belt_Assault
 
         private void HandleGamepadInput(GamePadState gamePadState)
         {
-            playerSprite.Velocity +=
+            Gunship.Velocity +=
                 new Vector2(
                     gamePadState.ThumbSticks.Left.X,
                     -gamePadState.ThumbSticks.Left.Y);
@@ -118,25 +119,25 @@ namespace Asteroid_Belt_Assault
 
         private void imposeMovementLimits()
         {
-            Vector2 location = playerSprite.Location;
+            Vector2 location = Gunship.Location;
 
             if (location.X < playerAreaLimit.X)
                 location.X = playerAreaLimit.X;
 
             if (location.X >
-                (playerAreaLimit.Right - playerSprite.Source.Width))
+                (playerAreaLimit.Right - Gunship.Source.Width))
                 location.X =
-                    (playerAreaLimit.Right - playerSprite.Source.Width);
+                    (playerAreaLimit.Right - Gunship.Source.Width);
 
             if (location.Y < playerAreaLimit.Y)
                 location.Y = playerAreaLimit.Y;
 
             if (location.Y >
-                (playerAreaLimit.Bottom - playerSprite.Source.Height))
+                (playerAreaLimit.Bottom - Gunship.Source.Height))
                 location.Y =
-                    (playerAreaLimit.Bottom - playerSprite.Source.Height);
+                    (playerAreaLimit.Bottom - Gunship.Source.Height);
 
-            playerSprite.Location = location;
+            Gunship.Location = location;
         }
 
         public void Update(GameTime gameTime)
@@ -145,17 +146,17 @@ namespace Asteroid_Belt_Assault
 
             if (!Destroyed)
             {
-                playerSprite.Velocity = Vector2.Zero;
+                Gunship.Velocity = Vector2.Zero;
 
                 shotTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 HandleKeyboardInput(Keyboard.GetState());
                 HandleGamepadInput(GamePad.GetState(PlayerIndex.One));
 
-                playerSprite.Velocity.Normalize();
-                playerSprite.Velocity *= playerSpeed;
+                Gunship.Velocity.Normalize();
+                Gunship.Velocity *= playerSpeed;
 
-                playerSprite.Update(gameTime);
+                Gunship.Update(gameTime);
                 imposeMovementLimits();
             }
         }
@@ -166,7 +167,7 @@ namespace Asteroid_Belt_Assault
 
             if (!Destroyed)
             {
-                playerSprite.Draw(spriteBatch);
+                Gunship.Draw(spriteBatch);
             }
         }
 

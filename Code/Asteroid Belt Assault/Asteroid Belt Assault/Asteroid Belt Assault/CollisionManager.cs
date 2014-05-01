@@ -72,13 +72,13 @@ namespace Asteroid_Belt_Assault
             foreach (Sprite shot in enemyManager.EnemyShotManager.Shots)
             {
                 if (shot.IsCircleColliding(
-                    playerManager.playerSprite.Center,
-                    playerManager.playerSprite.CollisionRadius))
+                    playerManager.Gunship.Center,
+                    playerManager.Gunship.CollisionRadius))
                 {
                     shot.Location = offScreen;
                     playerManager.Destroyed = true;
                     explosionManager.AddExplosion(
-                        playerManager.playerSprite.Center,
+                        playerManager.Gunship.Center,
                         Vector2.Zero);
                 }
             }
@@ -89,8 +89,8 @@ namespace Asteroid_Belt_Assault
             foreach (Enemy enemy in enemyManager.Enemies)
             {
                 if (enemy.EnemySprite.IsCircleColliding(
-                    playerManager.playerSprite.Center,
-                    playerManager.playerSprite.CollisionRadius))
+                    playerManager.Gunship.Center,
+                    playerManager.Gunship.CollisionRadius))
                 {
                     enemy.Destroyed = true;
                     explosionManager.AddExplosion(
@@ -100,7 +100,7 @@ namespace Asteroid_Belt_Assault
                     playerManager.Destroyed = true;
 
                     explosionManager.AddExplosion(
-                        playerManager.playerSprite.Center,
+                        playerManager.Gunship.Center,
                         Vector2.Zero);
                 }
             }
@@ -111,8 +111,8 @@ namespace Asteroid_Belt_Assault
             foreach (Sprite asteroid in asteroidManager.Asteroids)
             {
                 if (asteroid.IsCircleColliding(
-                    playerManager.playerSprite.Center,
-                    playerManager.playerSprite.CollisionRadius))
+                    playerManager.Gunship.Center,
+                    playerManager.Gunship.CollisionRadius))
                 {
                     explosionManager.AddExplosion(
                         asteroid.Center,
@@ -122,7 +122,7 @@ namespace Asteroid_Belt_Assault
 
                     playerManager.Destroyed = true;
                     explosionManager.AddExplosion(
-                        playerManager.playerSprite.Center,
+                        playerManager.Gunship.Center,
                         Vector2.Zero);
                 }
             }
